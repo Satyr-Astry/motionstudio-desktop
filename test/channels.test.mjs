@@ -68,3 +68,12 @@ test('核仓 ipc.mjs 的方法名集合与快照一致（两仓同一张表）',
         .sort();
     assert.deepEqual(calls, Object.keys(SNAPSHOT).sort(), '核仓桥方法名变了：同步 preload / main / ipc.mjs 三处');
 });
+
+// ── 从核仓 tests/ipc-failure.test.mjs 搬过来的壳侧守卫 ────────────────────
+// 拆仓前这条住在核仓（合仓形态），拆仓后只有壳仓同时看得见 preload 与 main。
+test('无对话框回写通道在 preload 与 main 两侧都接上了', () => {
+    assert.match(pre, /saveProjectTo: \(file, json\) => ipcRenderer\.invoke\('ms:save-project-to'/, 'preload 没暴露 saveProjectTo');
+    assert.match(main, /ipcMain\.handle\('ms:save-project-to'/, 'main 没注册通道');
+    assert.match(main, /path\.isAbsolute\(file\)/, '主进程要拒绝相对路径（写到哪里不可预期）');
+    assert.match(main, /fs\.writeFileSync\(file, json, 'utf8'\)/, '主进程要真的写盘');
+});
