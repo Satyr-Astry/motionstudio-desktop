@@ -37,6 +37,9 @@ git submodule update --init --recursive
 
 > 本地开发时若 `core/` 是本地路径（`.gitmodules` 里 `url=../motionstudio`），新版 git 会拒绝 file 协议的子模块拉取，用：
 > `git -c protocol.file.allow=always submodule update --init --recursive`
+>
+> **npm 11+ 默认不执行依赖的 install 脚本**：`npm ci` 之后如果启动报 `Electron failed to install correctly`，补一句
+> `node node_modules/electron/install.js`（本仓实测需要这一步，否则 `node_modules/electron/dist` 是空的）。
 
 ## 改渲染层代码
 
