@@ -1,6 +1,6 @@
 {
   "name": "motionstudio-desktop",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "private": true,
   "description": "MotionStudio desktop shell — Electron main process, IPC bridge and packaging (renderer lives in the motionstudio core repo, mounted at core/)",
   "main": "main.js",
